@@ -1,0 +1,20 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1  
+allow_duplicated_hosts: false
+keyed_groups:
+   - key: tags.Service
+     separator: ""
+filters:
+  instance-state-name: running  # Filter instances with the tag 'Environment=development'
+  tag:Owner:
+      - 'toharbarazi'
+  tag:Managed:
+      - 'true'
+    
+compose:
+  ansible_host: private_ip_address
+  host_name: tags.Name
+  service: tags.Service
+  version: tags.Version
+  restart: tags.Restart

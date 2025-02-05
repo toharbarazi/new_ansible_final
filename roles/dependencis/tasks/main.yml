@@ -1,0 +1,25 @@
+---
+
+- name: Copy rpm file to server
+  copy:
+     src: /home/ec2-user/Final_workshop_ansible/{{ item }}
+     dest: /home/ec2-user/rpm_package.rpm
+  loop: "{{ rpm }}"
+- name: install rpm
+  yum:
+    name: "{{ item }}"
+    state: present
+    disable_gpg_check: true
+  loop: "{{ packages }}"
+
+- name: Reload systemd daemon
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+
+- name: start service
+  ansible.builtin.service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  loop: "{{ system_service }}"
+

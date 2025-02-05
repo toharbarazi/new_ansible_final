@@ -1,0 +1,10 @@
+rpm:
+  - mysql57-community-release-el7-11.noarch.rpm
+packages:
+  - rpm_package.rpm
+  - mysql-community-server 
+  - cronie
+
+system_service: 
+  - mysqld
+  - crond

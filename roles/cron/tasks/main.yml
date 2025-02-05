@@ -1,0 +1,11 @@
+---
+
+- name: Creates a cron file under /etc/cron.d
+  ansible.builtin.cron:
+    name: ec2 restart
+    weekday: "{{ restart  | split(' at ') | first}}"
+    minute: "{{ restart  | split(' at ') | last | split(':') | last}}"
+    hour:  "{{ restart  | split(' at ') | last | split(':') | first}}"
+    user: root
+    job: "sudo reboot"
+

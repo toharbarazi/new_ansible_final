@@ -1,0 +1,10 @@
+rpm:
+  - nginx-1.17.1-1.el8.ngx.x86_64.rpm
+packages:
+  - rpm_package.rpm
+  - cronie
+
+
+system_service: 
+  - nginx
+  - crond

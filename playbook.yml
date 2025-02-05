@@ -1,0 +1,21 @@
+---
+- name: Gather information about EC2 instances
+  hosts: aws_ec2
+  become: true
+  gather_facts: yes
+  vars:
+    - ansible_ssh_private_key_file: "~/.ssh/tohar-keypair.pem"
+  
+  pre_tasks:
+    - name: VARS
+      debug:
+        msg: "{{ service }}<={{ version }}"
+    - name: new format
+      add_host:
+        name: "new host group"
+        groups: "{{ service }}"
+    
+  roles:
+    - dependencis 
+    - cron
+  
